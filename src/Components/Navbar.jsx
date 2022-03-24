@@ -12,7 +12,7 @@ const Navbar = props => (
         <div className='w-100 p-4 flex items-center'>
             <NavLink to="/"><img src="airbnb.svg" alt="App logo" className={"block h-8 w-8"} /></NavLink>
             <div className={"px-4 w-full h-11 flex justify-between items-center"}>
-                <div className="h-11 shadow-sm rounded-sm">
+                <div className="h-11 shadow-sm rounded-sm hidden lg:block">
                     <input 
                         className="h-11 px-2 border-solid border-gray-200 border-t-2 border-l-2 border-b-2 rounded-l-sm focus:ring-gray-500" 
                         type="text"
@@ -30,7 +30,7 @@ const Navbar = props => (
                     />
                 </div>
             
-                <div className={'w-1/4 flex justify-around'}>
+                <div className={'w-full flex justify-around lg:w-1/4'}>
                     <NavLink to="/host">Become a host</NavLink>
                     <NavLink to="/help">Help</NavLink>
                     <NavLink to="/signup">Sign Up</NavLink>
