@@ -17,16 +17,19 @@ const Navbar = props => (
                         className="h-11 px-2 border-solid border-gray-200 border-t-2 border-l-2 border-b-2 rounded-l-sm focus:ring-gray-500" 
                         type="text"
                         value="Anywhere" 
+                        readOnly
                     />
                     <input 
                         className="h-11 px-2 border-solid border-gray-200 border-2 focus:ring-gray-500" 
                         type="text" 
                         value="Anytime"
+                        readOnly
                     />
                     <input 
                         className="h-11 px-2 border-solid border-gray-200 border-t-2 border-r-2 border-b-2 rounded-r-sm focus:ring-gray-500" 
                         type="text" 
                         value="1 guest"
+                        readOnly
                     />
                 </div>
             
@@ -42,7 +45,7 @@ const Navbar = props => (
         <div className='w-full px-4 h-12 border-solid border-b-2 border-gray-200 shadow-sm'>
             {links.map((link, index) => (
                 <NavLink 
-                    className={navData => `mr-4 inline-flex h-full items-center uppercase border-red-700 ${navData.isActive && 'border-b-2 text-red-700'}`} 
+                    className={navData => `mr-8 inline-flex h-full items-center uppercase border-red-700 ${navData.isActive && 'border-b-2 text-red-700'}`} 
                     to={link.to}
                     key={index}
                 >
