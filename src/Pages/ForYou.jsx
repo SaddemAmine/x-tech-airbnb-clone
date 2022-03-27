@@ -1,99 +1,69 @@
+import { useState } from 'react'
+import { useEffect } from 'react'
 import Product from '../Components/Product'
-import axios from 'axios'
-
-const product = {
-    "name": "Marsa's Rooftop",
-    "address": "Site archéologique de Carthage, Tunis, Tunisia",
-    "description": "Nice apartment with a large private terrace overlooking the magnificent Essada park. In the heart of La Marsa and close to all amenities (a laundry just opposite), the accommodation is 7 minutes walk from the La Marsa train station, the Zéphyr shopping center and the beach, 15 minutes from the village of Sidi Bou said and a 20 minute taxi ride from the airport.\nIt is an independent accommodation, S + 1 well equipped: \n- kitchen with hob \n- microwave  \n- coffee maker\n- WIFI connection\n- Television\n",
-    "images": [
-      {
-        "sys": {
-          "type": "Link",
-          "linkType": "Asset",
-          "id": "5LMFN9geBIM2S038P9pV33"
-        }
-      },
-      {
-        "sys": {
-          "type": "Link",
-          "linkType": "Asset",
-          "id": "7KXUDBYwliiof3kCgkT716"
-        }
-      },
-      {
-        "sys": {
-          "type": "Link",
-          "linkType": "Asset",
-          "id": "3bVlD28Z8trrZVFAMzlhhJ"
-        }
-      },
-      {
-        "sys": {
-          "type": "Link",
-          "linkType": "Asset",
-          "id": "3DNCsxTZUwBRrOMFj1KqO3"
-        }
-      },
-      {
-        "sys": {
-          "type": "Link",
-          "linkType": "Asset",
-          "id": "2fhcPhe0qTCws9nA9aeo7l"
-        }
-      },
-      {
-        "sys": {
-          "type": "Link",
-          "linkType": "Asset",
-          "id": "cKZyKYfmp1lhf0i3Xxo4L"
-        }
-      }
-    ],
-    "wifi": true,
-    "kitchen": true,
-    "washer": true,
-    "tv": true,
-    "ac": true,
-    "parking": true,
-    "rating": 4
-}
+import { getEntries } from '../Helpers/contentful'
 
 const ForYou = props => {
-    const data = axios
-        .get('https://cdn.contentful.com/spaces/kov6s1nto0kt/environments/master/entries/3zijqEoehi4uHjp5L9MBaG?access_token=kfBx7GA2w1O6cZU9nXu8eD9Xlu5exUBTzCYJra1438g')
-        .then(res => console.log(res.data))
-        .catch(err => console.error(err))
+    const [countries, setCountries] = useState([])
+    const [homes, setHomes] = useState([])
+    const [experiences, setExperiences] = useState([])
+    const [places, setPlaces] = useState([])
+
+    useEffect(() => {
+      (async () => {
+        let items = await getEntries()
+        let newHomes = []
+        let newCountries = []
+        let newExperiences = []
+        let newPlaces = []
+        
+        items.forEach(item => {
+          if(item.sys.contentType.sys.id === 'home')
+            newHomes.push(item)
+          else
+            if(item.sys.contentType.sys.id === 'country')
+              newCountries.push(item)
+            else
+              if(item.sys.contentType.sys.id === 'experience')
+                newExperiences.push(item)
+              else
+                newPlaces.push(item)
+        })
+
+        setCountries(newCountries)
+        setHomes(newHomes)
+        setExperiences(newExperiences)
+        setPlaces(newPlaces)
+      })()
+    }, [])
 
     return (
         <div className="w-full px-56 py-20">
             <div>
                 <h1 className="text-2xl my-4">Just Booked</h1>
                 <div className="w-full flex justify-between">
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
+                    {homes.map((item, index) => <Product key={index} product={item.fields} isHome />)}
                 </div>
             </div>
-            <div>
-                <h1 className="text-2xl my-4">Just Booked</h1>
+
+            <div className='mt-20'>
+                <h1 className="text-2xl my-4">Featured Destination</h1>
                 <div className="w-full flex justify-between">
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
+                    {countries.map((item, index) => <Product key={index} product={item.fields} isCountry />)}
                 </div>
             </div>
-            <div>
-                <h1 className="text-2xl my-4">Just Booked</h1>
+
+            <div className='mt-20'>
+                <h1 className="text-2xl my-4">Experience</h1>
                 <div className="w-full flex justify-between">
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
-                    <Product product={product} />
+                    {experiences.map((item, index) => <Product key={index} product={item.fields} isExperience />)}
+                </div>
+            </div>
+
+            <div className='mt-20'>
+                <h1 className="text-2xl my-4">Places in London</h1>
+                <div className="w-full flex justify-between">
+                    {places.map((item, index) => <Product key={index} product={item.fields} isPlace />)}
                 </div>
             </div>
         </div>
