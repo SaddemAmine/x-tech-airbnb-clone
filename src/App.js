@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Navbar from './Components/Navbar'
+import Footer from './Components/Footer'
 import Spinner from './Components/Spinner'
 
 const ForYou = lazy(() => import('./Pages/ForYou'))
@@ -21,6 +22,7 @@ function App() {
           <Route path="xps" element={<Experiences />} />
         </Routes>
       </Suspense>
+      <Footer />
     </>
   );
 }
