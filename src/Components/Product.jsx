@@ -23,10 +23,10 @@ const Product = ({product, isCountry, isHome, isExperience, isPlace}) => {
                     <h3 className="text-ellipsis text-xl text-white uppercase">{product.name}</h3>
                 </>}
             </div>
-            {!isPlace && <h3 className="font-semibold text-ellipsis">{product.name}</h3>}
+            {!isPlace && <h3 style={{width: width}} className={`font-semibold text-ellipsis`}>{product.name}</h3>}
             
             {isHome && <>
-                <p>{product.address}</p>
+                <p className="">{product.address}</p>
                 <div className="flex justify-between w-full items-center">
                     <Stars rating={product.rating} />
                     <span>{product.reviews} reviews</span>
@@ -42,7 +42,7 @@ const Product = ({product, isCountry, isHome, isExperience, isPlace}) => {
             </>}
 
             {isPlace && <>
-                <h3>By {product.author}</h3>
+                <h3 style={{width: width}} className="xs:text-clip">By {product.author}</h3>
             </>}
         </div>
     )
