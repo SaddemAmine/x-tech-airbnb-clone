@@ -2,7 +2,7 @@ const contentful = require('contentful')
 
 const client = contentful.createClient({
     space: 'kov6s1nto0kt',
-    accessToken: 'kfBx7GA2w1O6cZU9nXu8eD9Xlu5exUBTzCYJra1438g'
+    accessToken: process.env.REACT_APP_KEY
 })
 
 const getEntries = () => client.getEntries().then(res => res.items).catch(err => console.error(err))
